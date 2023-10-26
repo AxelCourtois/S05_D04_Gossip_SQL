@@ -16,14 +16,14 @@ Tag.destroy_all
 City.destroy_all
 
 
-10.times do |index|
+10.times do 
   City.create!(
     name: Faker::Address.city,
     zip_code: Faker::Address.zip
    )
 end
 
-10.times do |index|
+10.times do 
   User.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -34,7 +34,7 @@ end
   )
 end
 
-20.times do |index|
+20.times do 
   Gossip.create!(
     title: Faker::Book.title,
     content: Faker::Quote.matz,
@@ -42,14 +42,14 @@ end
   )
 end
 
-10.times do |index|
+10.times do
   Tag.create!(
     title: Faker::Book.genre 
   )
 end
 
 Gossip.all.each do |gossip|
-  2.times do |index|
+  rand(1..5).times do 
     GossipTag.create!(
       gossip: gossip,
       tag: Tag.all.sample
@@ -66,4 +66,19 @@ User.all.each do |user|
       recipient: recipient
     )
   end
+end
+
+20.times do 
+  Comment.create!(
+    content: Faker::Quote.matz,
+    user: User.all.sample,
+    gossip: Gossip.all.sample
+  )
+end
+
+20.times do
+  user = User.all.sample 
+  likable = [Gossip, Comment].sample.all.sample 
+
+  Like.create(user: user, likable: likable)
 end
