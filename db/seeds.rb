@@ -56,3 +56,14 @@ Gossip.all.each do |gossip|
     )
   end
 end
+
+User.all.each do |user|
+  rand(1..5).times do
+    recipient = User.where.not(id: user.id).sample
+    PrivateMessage.create!(
+      content: Faker::Quote.matz,
+      sender: user,
+      recipient: recipient
+    )
+  end
+end
